@@ -2,21 +2,18 @@ using Hahn.ApplicationProcess.February2021.Data.EfRepository;
 using Hahn.ApplicationProcess.February2021.Domain.interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
-
+using Hahn.ApplicationProcess.February2021.Domain.Middlewares;
+using MediatR;
+using Hahn.ApplicationProcess.February2021.Domain.Application.Command;
+using FluentValidation.AspNetCore;
 namespace Hahn.ApplicationProcess.February2021.Web
 {
     public class Startup
@@ -32,11 +29,13 @@ namespace Hahn.ApplicationProcess.February2021.Web
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
+            services.AddControllers()
+                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
             services.AddScoped<IAssetRepository, AssetRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWorkRepository>();
             services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
-    
+         
+            services.AddMediatR(typeof(AddAssetCommand));
             services.AddDbContext<HahnDbContext>(opt => {
                 opt.UseSqlServer(Configuration.GetConnectionString("hahnConn"));
             });
@@ -59,8 +58,8 @@ namespace Hahn.ApplicationProcess.February2021.Web
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Hahn.ApplicationProcess.February2021.Web v1"));
             }
 
-            app.UseHttpsRedirection();
-
+            //app.UseHttpsRedirection();
+            app.UseHttpStatusCodeExceptionMiddleware();
             app.UseRouting();
 
             app.UseAuthorization();

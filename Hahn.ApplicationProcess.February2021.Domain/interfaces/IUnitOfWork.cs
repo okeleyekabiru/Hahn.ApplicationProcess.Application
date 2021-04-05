@@ -10,6 +10,6 @@ namespace Hahn.ApplicationProcess.February2021.Domain.interfaces
     {
         IAssetRepository Assets { get; }
        
-        bool Complete();
+        Task<bool> Complete();
     }
 }

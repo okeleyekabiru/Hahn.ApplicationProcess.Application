@@ -20,9 +20,9 @@ namespace Hahn.ApplicationProcess.February2021.Data.EfRepository
         }
 
         
-        public bool Complete()
+        public async Task<bool> Complete()
         {
-            return _context.SaveChanges() > 0;
+            return await _context.SaveChangesAsync() > 0;
         }
         public void Dispose()
         {

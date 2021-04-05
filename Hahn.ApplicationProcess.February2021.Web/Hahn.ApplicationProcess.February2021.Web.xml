@@ -4,5 +4,37 @@
         <name>Hahn.ApplicationProcess.February2021.Web</name>
     </assembly>
     <members>
+        <member name="M:Hahn.ApplicationProcess.February2021.Web.Controllers.AssetController.Post(Hahn.ApplicationProcess.February2021.Domain.Application.Command.AddAssetCommand)">
+            <summary>
+            Create an asset.
+            </summary>
+            <param name="request"></param>
+            <response code="201">Asset successfully created</response>
+            <response code="400">Invalid asset input </response>
+        </member>
+        <member name="M:Hahn.ApplicationProcess.February2021.Web.Controllers.AssetController.Get(Hahn.ApplicationProcess.February2021.Domain.Application.Query.GetAssetQuery)">
+            <summary>
+            Get an asset.
+            </summary>
+            <param name="request"></param>
+            <response code="200">Asset query successfully</response>
+            <response code="400">Invalid asset id </response>
+        </member>
+        <member name="M:Hahn.ApplicationProcess.February2021.Web.Controllers.AssetController.Put(Hahn.ApplicationProcess.February2021.Domain.Application.Command.UpdateAssetCommand)">
+            <summary>
+            Update an asset.
+            </summary>s
+            <param name="request"></param>
+            <response code="200">Asset Update successfully</response>
+            <response code="400">Invalid asset id </response>
+        </member>
+        <member name="M:Hahn.ApplicationProcess.February2021.Web.Controllers.AssetController.Delete(Hahn.ApplicationProcess.February2021.Domain.Application.Command.DeleteAssetCommand)">
+            <summary>
+            Delete an asset.
+            </summary>s
+            <param name="request"></param>
+            <response code="200">Asset Deleted successfully</response>
+            <response code="400">Invalid asset id </response>
+        </member>
     </members>
 </doc>
