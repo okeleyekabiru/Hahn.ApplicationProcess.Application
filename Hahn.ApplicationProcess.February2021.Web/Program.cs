@@ -36,10 +36,18 @@ namespace Hahn.ApplicationProcess.February2021.Web
             }
         }
         public static IHostBuilder CreateHostBuilder(string[] args) =>
-        Host.CreateDefaultBuilder(args).UseSerilog()
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
+        Host.CreateDefaultBuilder(args)
+            .ConfigureLogging(logging =>
+            {
+                logging.ClearProviders();
+                logging.AddConsole();
+                logging.AddFilter("Microsoft", LogLevel.Information);
+                logging.AddFilter("System", LogLevel.Error);
+            })
+            .UseSerilog()
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+              webBuilder.UseStartup<Startup>();
+            });
     }
 }
