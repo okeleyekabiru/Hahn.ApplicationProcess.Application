@@ -3,7 +3,7 @@
   <PropertyGroup Label="Globals">
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Windows</DockerTargetOS>
-    <ProjectGuid>6fc758d9-83e2-4336-84b1-a6120c5afe03</ProjectGuid>
+    <ProjectGuid>7bfa922c-01c3-4b36-ae94-d0e157cbba65</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://{ServiceIPAddress}{ServicePort}/swagger</DockerServiceUrl>
     <DockerServiceName>hahn.applicationprocess.february2021.web</DockerServiceName>

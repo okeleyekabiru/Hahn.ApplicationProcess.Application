@@ -30,14 +30,13 @@ namespace Hahn.ApplicationProcess.February2021.Web
         {
 
             services.AddControllers()
-                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
+                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining(typeof(AddAssetCommandValidator)));
             services.AddScoped<IAssetRepository, AssetRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWorkRepository>();
             services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
-         
             services.AddMediatR(typeof(AddAssetCommand));
             services.AddDbContext<HahnDbContext>(opt => {
-                opt.UseSqlServer(Configuration.GetConnectionString("hahnConn"));
+                opt.UseSqlServer(Configuration.GetConnectionString("hahnConn"), b => b.MigrationsAssembly("Hahn.ApplicationProcess.February2021.Web"));
             });
             services.AddSwaggerGen(c =>
             {

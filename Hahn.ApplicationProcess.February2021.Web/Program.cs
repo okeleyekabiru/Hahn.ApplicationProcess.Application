@@ -1,5 +1,8 @@
+using Hahn.ApplicationProcess.February2021.Data.EfRepository;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
@@ -24,7 +27,15 @@ namespace Hahn.ApplicationProcess.February2021.Web
             try
             {
                 Log.Information("Application Starting.");
-                CreateHostBuilder(args).Build().Run();
+                var host = CreateHostBuilder(args).Build();
+
+                using (var scope = host.Services.CreateScope())
+                {
+                    var db = scope.ServiceProvider.GetRequiredService<HahnDbContext>();
+                    db.Database.Migrate();
+                }
+
+                host.Run();
             }
             catch (Exception ex)
             {
